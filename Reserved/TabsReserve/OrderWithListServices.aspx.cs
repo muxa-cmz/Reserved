@@ -1,43 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
+using DropDownList;
 using Reserved.Models.DomainModels;
 using Reserved.Models.Mappers;
-using TileWithCheckBox = TileWithCheckBox.TileWithCheckBox;
+using Category = Reserved.Models.DomainModels.Category;
+using DropDownList = DropDownList.DropDownList;
+using CategoryDDL = DropDownList.Category;
+using Service = Reserved.Models.DomainModels.Service;
+using ServiceDDL = DropDownList.Service;
 
 namespace Reserved.TabsReserve
 {
     public partial class OrderWithListServices : System.Web.UI.Page
     {
+
+        private List<CategoryDDL> CategoriesToCategoriesDLL(List<Category> categories)
+        {
+            List<CategoryDDL> categoriesDDL = new List<CategoryDDL>();
+            foreach (var category in categories)
+            {
+                categoriesDDL.Add(new CategoryDDL(category.Id, category.Name));
+            }
+            return categoriesDDL;
+        }
+
+        private List<ServiceDDL> ServicesToServicesDLL(List<Service> services)
+        {
+            List<ServiceDDL> servicesDDL = new List<ServiceDDL>();
+            foreach (var service in services)
+            {
+                servicesDDL.Add(new ServiceDDL(service.Id,
+                                               service.Name,
+                                               service.Price,
+                                               service.Notation,
+                                               service.Duration,
+                                               service.PathToImage,
+                                               service.IdCategory,
+                                               service.IdSubCategory));
+            }
+            return servicesDDL;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<Service> services = new List<Service>();
-            ServicesMapper servicesMapper = new ServicesMapper();
+            //List<Service> services = new List<Service>();
+            //ServicesMapper servicesMapper = new ServicesMapper();
+            //CategoryMapper categoriesMapper = new CategoryMapper();
+            //foreach (var category in categories)
+            //{
+            //    services.AddRange(servicesMapper.GetServicesByCategory(category.Id));
+            //}
 
             List<Category> categories = new List<Category>();
             CategoryMapper categoriesMapper = new CategoryMapper();
-            
             categories.AddRange(categoriesMapper.GetCategory());
 
-            foreach (var category in categories)
-            {
-                services.AddRange(servicesMapper.GetServicesByCategory(category.Id));
-            }
+            List<Service> services = new List<Service>();
+            ServicesMapper servicesMapper = new ServicesMapper();
+            services.AddRange(servicesMapper.GetServices());
 
 
             if (Master != null)
             {
                 ContentPlaceHolder placeHolder = (ContentPlaceHolder)Master.FindControl("MainContent");
-                var div1 = placeHolder.FindControl("accordionPanel");
-                global::TileWithCheckBox.TileWithCheckBox weBox = new global::TileWithCheckBox.TileWithCheckBox
+
+                global::DropDownList.DropDownList ddList = new global::DropDownList.DropDownList
                 {
-                    ID = "TileWithCheckBox1",
-                    Title = "Бесконтактная ;bjj",
-                    Image = "../Image/39.jpg",
-                    CheckBoxName = "checkbox1",
-                    ValueInput = "ch2"
+                    Categories = CategoriesToCategoriesDLL(categories),
+                    Services = ServicesToServicesDLL(services)
                 };
-                placeHolder.Controls.Add(weBox);
+                placeHolder.Controls.Add(ddList);
             }
             
         }

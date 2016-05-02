@@ -3,6 +3,8 @@
 
 <%@ Register Assembly="TileWithCheckBox" Namespace="TileWithCheckBox" TagPrefix="cc1" %>
 
+<%@ Register Assembly="DropDownList" Namespace="DropDownList" TagPrefix="cc1" %>
+
 
 
 
@@ -136,7 +138,8 @@
     <link href="../Libs/Metro-UI-CSS-master/build/css/metro.css" rel="stylesheet" />
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="../Libs/Metro-UI-CSS-master/build/js/metro.js"></script>
-    
+      
+
     <%--<table>
         <tr>
             <td style="align-content: center">
@@ -156,7 +159,7 @@
         </tr>
     </table>--%>
 
-    <%--<div class="accordion" id="accordion">
+    <%--<div class="accordion" id="accordion">        
         <div class="frame">
             <div class="heading">Кузов</div>
             <div class="content">
@@ -228,6 +231,7 @@
                 </table>
             </div>
         </div>
+        
         <div class="frame">
             <div class="heading">Frame heading</div>
             <div class="content">Frame content</div>
@@ -245,7 +249,7 @@
     <script type="text/javascript">
         document.getElementById("btnStatus").onclick = function() {
             var checked = [];
-            var count = 1; // Решить проблему с тем что число должно соответствовать количеству "плиток"
+            var count = 5; // Решить проблему с тем что число должно соответствовать количеству "плиток"
             var i = 0;
             while (++i <= count) {
                 //debugger;

@@ -38,7 +38,7 @@ namespace Reserved.Models.Mappers
 
         public List<Category> GetCategory()
         {
-            String SQL = "SELECT * FROM Subcategory";
+            String SQL = "SELECT * FROM Category";
             return GetCategory(SQL);
         }
 
