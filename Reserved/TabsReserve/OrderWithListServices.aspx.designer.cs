@@ -11,5 +11,14 @@ namespace Reserved.TabsReserve {
     
     
     public partial class OrderWithListServices {
+        
+        /// <summary>
+        /// ServiceList элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::DropDownList.DropDownList ServiceList;
     }
 }

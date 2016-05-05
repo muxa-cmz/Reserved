@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 using DropDownList;
 using Reserved.Models.DomainModels;
 using Reserved.Models.Mappers;
 using Category = Reserved.Models.DomainModels.Category;
-using DropDownList = DropDownList.DropDownList;
-using CategoryDDL = DropDownList.Category;
 using Service = Reserved.Models.DomainModels.Service;
+//using DropDownList = System.Web.UI.WebControls.DropDownList.DropDownList;
+using CategoryDDL = DropDownList.Category;
 using ServiceDDL = DropDownList.Service;
 
 namespace Reserved.TabsReserve
@@ -17,29 +18,19 @@ namespace Reserved.TabsReserve
 
         private List<CategoryDDL> CategoriesToCategoriesDLL(List<Category> categories)
         {
-            List<CategoryDDL> categoriesDDL = new List<CategoryDDL>();
-            foreach (var category in categories)
-            {
-                categoriesDDL.Add(new CategoryDDL(category.Id, category.Name));
-            }
-            return categoriesDDL;
+            return categories.Select(category => new CategoryDDL(category.Id, category.Name)).ToList();
         }
 
         private List<ServiceDDL> ServicesToServicesDLL(List<Service> services)
         {
-            List<ServiceDDL> servicesDDL = new List<ServiceDDL>();
-            foreach (var service in services)
-            {
-                servicesDDL.Add(new ServiceDDL(service.Id,
-                                               service.Name,
-                                               service.Price,
-                                               service.Notation,
-                                               service.Duration,
-                                               service.PathToImage,
-                                               service.IdCategory,
-                                               service.IdSubCategory));
-            }
-            return servicesDDL;
+            return services.Select(service => new ServiceDDL(service.Id, 
+                                                             service.Name,
+                                                             service.Price,
+                                                             service.Notation,
+                                                             service.Duration,
+                                                             service.PathToImage,
+                                                             service.IdCategory,
+                                                             service.IdSubCategory)).ToList();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -51,6 +42,9 @@ namespace Reserved.TabsReserve
             //{
             //    services.AddRange(servicesMapper.GetServicesByCategory(category.Id));
             //}
+
+            // Предотвращение повторной инициализации
+            if (this.IsPostBack) return; 
 
             List<Category> categories = new List<Category>();
             CategoryMapper categoriesMapper = new CategoryMapper();
@@ -65,16 +59,22 @@ namespace Reserved.TabsReserve
             {
                 ContentPlaceHolder placeHolder = (ContentPlaceHolder)Master.FindControl("MainContent");
 
-                global::DropDownList.DropDownList ddList = new global::DropDownList.DropDownList
-                {
-                    Categories = CategoriesToCategoriesDLL(categories),
-                    Services = ServicesToServicesDLL(services)
-                };
-                placeHolder.Controls.Add(ddList);
+                DropDownList.DropDownList dropDownList = (DropDownList.DropDownList)placeHolder.FindControl("ServiceList");
+
+                dropDownList.Categories = CategoriesToCategoriesDLL(categories);
+                dropDownList.Services = ServicesToServicesDLL(services);
+
+                //var ew = dropDownList.Controls;
+
+                //global::DropDownList.DropDownList ddList = new global::DropDownList.DropDownList
+                //{
+                //    Categories = CategoriesToCategoriesDLL(categories),
+                //    Services = ServicesToServicesDLL(services)
+                //};
+
             }
             
         }
-
     }
 }
 

@@ -43,7 +43,7 @@
 
         </div>
         <div class="main">
-			<asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
             <div style="margin:10px;">
                 <asp:ContentPlaceHolder ID="ServiceContent" runat="server"/>
             </div>
@@ -55,6 +55,7 @@
         
     </div>
     </form>
+
 </body>
 </html>
 

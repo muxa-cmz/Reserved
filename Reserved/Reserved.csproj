@@ -119,9 +119,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="TileWithCheckBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\TileWithCheckBox.dll</HintPath>
+    <Reference Include="TileWithCheckBox">
+      <HintPath>..\..\..\..\..\..\Documents\Visual Studio 2012\Projects\TileWithCheckBox\TileWithCheckBox\bin\Debug\TileWithCheckBox.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -532,17 +531,6 @@
     <Content Include="Scripts\Clock\minute_arrow.png" />
     <Content Include="Scripts\Clock\timepicker-ui.min.css" />
     <Content Include="Scripts\Clock\timepicker-ui.min.js" />
-    <Content Include="Scripts\g.bar-min.js" />
-    <Content Include="Scripts\g.bar.js" />
-    <Content Include="Scripts\g.dot-min.js" />
-    <Content Include="Scripts\g.dot.js" />
-    <Content Include="Scripts\g.line-min.js" />
-    <Content Include="Scripts\g.line.js" />
-    <Content Include="Scripts\g.pie-min.js" />
-    <Content Include="Scripts\g.pie.js" />
-    <Content Include="Scripts\g.raphael-min.js" />
-    <Content Include="Scripts\g.raphael.js" />
-    <Content Include="Scripts\init.js" />
     <Content Include="Libs\.gitattributes" />
     <Content Include="Libs\.gitignore" />
     <Content Include="Libs\bower.json" />
@@ -640,10 +628,22 @@
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.maskedinput.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\paths.js" />
-    <Content Include="Scripts\raphael-min.js" />
-    <Content Include="Scripts\raphael.js" />
+    <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Scripts\Wizard\bootstrap\css\bootstrap.css" />
+    <Content Include="Scripts\Wizard\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Scripts\Wizard\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\Wizard\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Scripts\Wizard\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Scripts\Wizard\bootstrap\js\bootstrap.js" />
+    <Content Include="Scripts\Wizard\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\Wizard\bootstrap\js\npm.js" />
+    <Content Include="Scripts\Wizard\index.html" />
+    <Content Include="Scripts\Wizard\jquery.bootstrap.wizard.js" />
+    <Content Include="Scripts\Wizard\jquery.bootstrap.wizard.min.js" />
+    <Content Include="Scripts\Wizard\MIT-LICENSE.txt" />
+    <Content Include="Scripts\Wizard\prettify.css" />
+    <Content Include="Scripts\Wizard\prettify.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="TabsReserve\OrderWithListServices.aspx" />
     <Content Include="Web.config" />
@@ -654,6 +654,14 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Scripts\Wizard\bootstrap\.DS_Store" />
+    <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Scripts\Wizard\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Scripts\Wizard\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\Wizard\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\Wizard\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\Wizard\bower.json" />
+    <Content Include="Scripts\Wizard\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

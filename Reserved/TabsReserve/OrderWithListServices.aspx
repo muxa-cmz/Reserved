@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Забронировать" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeBehind="~/TabsReserve/OrderWithListServices.aspx.cs" Inherits="Reserved.TabsReserve.OrderWithListServices" %>
 
-<%@ Register Assembly="TileWithCheckBox" Namespace="TileWithCheckBox" TagPrefix="cc1" %>
+<%--<%@ Register Assembly="TileWithCheckBox" Namespace="TileWithCheckBox" TagPrefix="cc1" %>--%>
 
 <%@ Register Assembly="DropDownList" Namespace="DropDownList" TagPrefix="cc1" %>
 
@@ -18,7 +18,7 @@
         т.е. здесь мы немного облагораживаем стандартный чекбокс. */
         .checkbox {
             vertical-align: top;
-            margin: 10px 0 0 0;
+            margin: 5px 0 0 0;
             width: 17px;
             height: 17px;
         }
@@ -91,7 +91,9 @@
         }
 
         /*Отменить выделение текста в элементах Label*/
-        .label {
+        .label-tile {
+            color: black;
+            font-size: 11px;
             -webkit-user-select: none; 
             -moz-user-select: none; 
             -ms-user-select: none; 
@@ -99,7 +101,7 @@
             user-select: none;
         }
 
-        .label_image {
+        .label-image {
             width: 100px; height: 100px; 
             display: inline-block;
             -webkit-user-select: none; 
@@ -138,115 +140,94 @@
     <link href="../Libs/Metro-UI-CSS-master/build/css/metro.css" rel="stylesheet" />
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="../Libs/Metro-UI-CSS-master/build/js/metro.js"></script>
-      
-
-    <%--<table>
-        <tr>
-            <td style="align-content: center">
-                <cc1:TileWithCheckBox ID="TileWithCheckBox1" 
-                          Title="Бесконтактная" 
-                          Image="../Image/38.jpg"
-                          CheckBoxName="checkbox1"
-                          ValueInput="ch1" runat="server" Enabled="False"/>
-            </td>
-            <td style="align-content: center">
-                <cc1:TileWithCheckBox ID="TileWithCheckBox3" 
-                            Title="Бесконтактная" 
-                            Image="../Image/39.jpg"
-                            CheckBoxName="checkbox2"
-                            ValueInput="ch2" runat="server"/>
-            </td>
-        </tr>
-    </table>--%>
-
-    <%--<div class="accordion" id="accordion">        
-        <div class="frame">
-            <div class="heading">Кузов</div>
-            <div class="content">
-                <table>
-                    <tr>
-                        <td class="disable">
-                            <div class="outer">
-                                <label for="checkbox1" class="label">Бесконтактная мойка</label>
-                                <br style="margin: 0 0 5px 0"/>
-                                <label for="checkbox1" class="label_image" style="background-image: url(Image/38.jpg);"></label>
-                                <br style="margin: 0 0 7px 0"/>
-                                <input type="checkbox" class="checkbox" id="checkbox1" name="checkbox1" value="cb1"/>
-                                <label for="checkbox1"></label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="outer">
-                                <label for="checkbox2" class="label">Полировка воском</label>
-                                <br style="margin: 0 0 5px 0"/>
-                                <label for="checkbox2" class="label_image" style="background-image: url(Image/39.jpg);"></label>
-                                <br style="margin: 0 0 7px 0"/>
-                                <input type="checkbox" class="checkbox" id="checkbox2" name="checkbox2" value="cb2"/>
-                                <label for="checkbox2"></label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="outer">
-                                <label for="checkbox5" class="label">Бесконтактная мойка</label>
-                                <br style="margin: 0 0 5px 0"/>
-                                <label for="checkbox5" class="label_image" style="background-image: url(Image/38.jpg);"></label>
-                                <br style="margin: 0 0 7px 0"/>
-                                <input type="checkbox" class="checkbox" id="checkbox5" name="checkbox5" value="cb5"/>
-                                <label for="checkbox5"></label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="outer">
-                                <label for="checkbox6" class="label">Бесконтактная мойка</label>
-                                <br style="margin: 0 0 5px 0"/>
-                                <label for="checkbox6" class="label_image" style="background-image: url(Image/38.jpg);"></label>
-                                <br style="margin: 0 0 7px 0"/>
-                                <input type="checkbox" class="checkbox" id="checkbox6" name="checkbox6" value="cb6"/>
-                                <label for="checkbox6"></label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="outer">
-                                <label for="checkbox3" class="label">Полировка воском</label>
-                                <br style="margin: 0 0 5px 0"/>
-                                <label for="checkbox3" class="label_image" style="background-image: url(Image/40.jpg);"></label>
-                                <br style="margin: 0 0 7px 0"/>
-                                <input type="checkbox" class="checkbox" id="checkbox3" name="checkbox3" value="cb3"/>
-                                <label for="checkbox3"></label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="outer">
-                                <label for="checkbox4" class="label">Полировка воском</label>
-                                <br style="margin: 0 0 5px 0"/>
-                                <label for="checkbox4" class="label_image" style="background-image: url(Image/41.jpg);"></label>
-                                <br style="margin: 0 0 7px 0"/>
-                                <input type="checkbox" class="checkbox" id="checkbox4" name="checkbox4" value="cb4"/>
-                                <label for="checkbox4"></label>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        
-        <div class="frame">
-            <div class="heading">Frame heading</div>
-            <div class="content">Frame content</div>
-        </div>
-    </div>--%>
     
-    <input type="button" id="btnStatus" value="Забронировать"/>
+    <link href="/Scripts/Wizard/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/Scripts/Wizard/prettify.css" rel="stylesheet"/>
+    
+    <script src="/Scripts/Wizard/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/Scripts/Wizard/jquery.bootstrap.wizard.js"></script>
+	<script src="/Scripts/Wizard/prettify.js"></script>
+    
+    
+    <div id="rootwizard">
+	    <div class="navbar">
+	      <div class="navbar-inner">
+	        <div class="container">
+	            <ul>
+	  	            <li><a href="#tab1" data-toggle="tab">Выбор списка услуг</a></li>
+		            <li><a href="#tab2" data-toggle="tab">Выбор даты и времени</a></li>
+		            <li><a href="#tab3" data-toggle="tab">Персональные данные</a></li>
+	            </ul>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="tab-content">
+	        <div class="tab-pane" id="tab1">
+	            <%-- Выбор услуг --%>
+	            <cc1:DropDownList runat="server" ID="ServiceList"/>
+            </div>
+	        <div class="tab-pane" id="tab2">
+	            <%-- Календарь --%>
+	              <div style="width: 250px">
+                    <div class="calendar" 
+                         data-week-start="1" 
+                         data-start-mode="month" 
+                         id="cal-events"
+                         data-locale="ru"
+                         data-day-click="day_click"></div>
+                    <div id="calendar-output2"></div>
+                </div>
+	        </div>
+		    <div class="tab-pane" id="tab3">
+			  3
+	        </div>
+		    <ul class="pager wizard">
+			    <li class="previous first" style="display:none;"><a href="#">Первая</a></li>
+			    <li class="previous"><a href="#">Назад</a></li>
+			    <li class="next last" style="display:none;"><a href="#">Последняя</a></li>
+		  	    <li class="next"><a href="#">Далее</a></li>
+		    </ul>
+	    </div>	
+    </div>
+
+   <%--Скрипт для календаря "Библиотека Metro"--%>
+    <script>
+        $(function () {
+            var cal = $("#cal-events").calendar({
+                multiSelect: false,
+                format: 'yyyy-dd-mm'
+            });
+        });
+
+        function day_click(short, full) {
+            //alert("You click on day!\nShort: " + short + "\nFull: " + full);
+            // Выводить выбранную дату куда необходимо
+            var out = $("#calendar-output2").html("");
+            out.html(short);
+        }
+    </script>
+
+    <%--Скрипт для multiple формы "Библиотека Bootstrap"--%>
+    <script>
+        $(document).ready(function () {
+            $('#rootwizard').bootstrapWizard();
+        });
+    </script>
+
+    <%--Скрипт для раскрывающегося списка "Библиотека Metro"--%>
     <script>
         $(function () {
             $("#accordion").accordion();
-            $("#accordionPanel").accordion();
         });
     </script>
-    <script src="../Scripts/init.js"></script>
+    
+    <%--Скрипт для анализа активных плиток--%>
     <script type="text/javascript">
+        
+        function setCookie(name, value) {
+            document.cookie = name + "=" + value;
+        }
+
         document.getElementById("btnStatus").onclick = function() {
             var checked = [];
             var count = 5; // Решить проблему с тем что число должно соответствовать количеству "плиток"
