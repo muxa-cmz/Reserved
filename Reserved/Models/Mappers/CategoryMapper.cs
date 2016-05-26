@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
+using System.Linq;
+using Newtonsoft.Json.Linq;
 using Reserved.Models.DomainModels;
 using Reserved.Models.Masters;
 
@@ -8,39 +9,25 @@ namespace Reserved.Models.Mappers
 {
     public class CategoryMapper
     {
-        private readonly DBMaster _dbMaster = new DBMaster();
+        private JsonMaster jsonMaster = new JsonMaster();
+        private Dictionary<String, String> parameters = new Dictionary<string, string>();
+        private String url = "http://autoline.h1n.ru/get_all_categories.php";
 
-        private List<Category> GetCategory(String SQL)
+        public List<Category> GetCategories()
         {
-            _dbMaster.OpenConnection();
             List<Category> categories = new List<Category>();
-            try
+            String response = jsonMaster.GetJSON(url, parameters);
+            JObject jObject = JObject.Parse(response);
+            JToken success = jObject["success"];
+            if ((int)success == 1)
             {
-                MySqlCommand command = _dbMaster.GetConnection().CreateCommand();
-                command.CommandText = SQL;
-                command.ExecuteNonQuery();
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        categories.Add(new Category(Convert.ToInt32(reader["id"]),
-                            reader["name"].ToString()));
-                    }
-                }
+                JToken jServices = jObject["categories"];
+                var jArray = jServices.ToArray();
+                categories = jArray.Select(element => new Category((int)element["id"],
+                                                                    element["name"].ToString())).ToList();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            _dbMaster.CloseConnection();
             return categories;
-        }
 
-        public List<Category> GetCategory()
-        {
-            String SQL = "SELECT * FROM Category";
-            return GetCategory(SQL);
         }
-
     }
 }

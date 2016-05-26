@@ -1,89 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
+using System.Linq;
 using Reserved.Models.DomainModels;
+using Newtonsoft.Json.Linq;
 using Reserved.Models.Masters;
 
 namespace Reserved.Models.Mappers
 {
     public class ServicesMapper
     {
-        private readonly DBMaster _dbMaster = new DBMaster();
-
-        private List<Service> GetServices(String SQL)
-        {
-            _dbMaster.OpenConnection();
-            List<Service> services = new List<Service>();
-            try
-            {
-                MySqlCommand command = _dbMaster.GetConnection().CreateCommand();
-                command.CommandText = SQL;
-                command.ExecuteNonQuery();
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        services.Add(new Service(Convert.ToInt32(reader["id"]),
-                            reader["name"].ToString(),
-                            reader["price"].ToString(),
-                            reader["notation"].ToString(),
-                            reader["duration"].ToString(),
-                            reader["path_to_image"].ToString(),
-                            Convert.ToInt32(reader["id_category"]),
-                            Convert.ToInt32(reader["id_subcategory"])));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            _dbMaster.CloseConnection();
-            return services;
-        }
+        private JsonMaster jsonMaster = new JsonMaster();
+        private Dictionary<String, String> parameters = new Dictionary<string, string>();
+        private String url = "http://autoline.h1n.ru/get_all_services.php";
 
         public List<Service> GetServices()
         {
-            String SQL = "SELECT * FROM Services";
-            return GetServices(SQL);
-        }
-
-        public List<Service> GetServicesByCategory(int idCategory)
-        {
-            _dbMaster.OpenConnection();
             List<Service> services = new List<Service>();
-            try
+            String response = jsonMaster.GetJSON(url, parameters);
+            JObject jObject = JObject.Parse(response);
+            JToken success = jObject["success"];
+            if ((int)success == 1)
             {
-                MySqlCommand command = _dbMaster.GetConnection().CreateCommand();
-                command.CommandText = "SELECT * FROM Services WHERE id_category = @idCategory";
-                command.Parameters.AddWithValue("@idCategory", idCategory);
-                command.ExecuteNonQuery();
-                using (MySqlDataReader reader = command.ExecuteReader())
+                JToken jServices = jObject["services"];
+                var jArray = jServices.ToArray();
+                services = jArray.Select(element =>
                 {
-                    while (reader.Read())
-                    {
-                        services.Add(new Service(Convert.ToInt32(reader["id"]),
-                            reader["name"].ToString(),
-                            reader["price"].ToString(),
-                            reader["notation"].ToString(),
-                            reader["duration"].ToString(),
-                            reader["path_to_image"].ToString(),
-                            Convert.ToInt32(reader["id_category"]),
-                            Convert.ToInt32(reader["id_subcategory"])));
-                    }
-                }
+                    if (element == null) throw new ArgumentNullException("element");
+                    return new Service((int) element["id"],
+                        element["name"].ToString(),
+                        element["notation"].ToString(),
+                        element["duration"].ToString(),
+                        element["path_to_image"].ToString(),
+                        (int) element["id_category"],
+                        (int) element["id_subcategory"]);
+                }).ToList();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            _dbMaster.CloseConnection();
             return services;
+
         }
-
-
-
-
-
     }
 }

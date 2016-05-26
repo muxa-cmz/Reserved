@@ -162,12 +162,13 @@
 	      </div>
 	    </div>
 	    <div class="tab-content">
+            <%-- Выбор услуг --%>
 	        <div class="tab-pane" id="tab1">
-	            <%-- Выбор услуг --%>
 	            <cc1:DropDownList runat="server" ID="ServiceList"/>
             </div>
+            <%-- ***************** --%>
+             <%-- Календарь --%>
 	        <div class="tab-pane" id="tab2">
-	            <%-- Календарь --%>
 	              <div style="width: 250px">
                     <div class="calendar" 
                          data-week-start="1" 
@@ -178,9 +179,18 @@
                     <div id="calendar-output2"></div>
                 </div>
 	        </div>
+            <%-- ***************** --%>
+            <%-- Персональные данные --%>
 		    <div class="tab-pane" id="tab3">
-			  3
+		        <asp:Label ID="Label2" runat="server" Text="Список выбранных вами услуг"></asp:Label>
+                
+
+			    <asp:Label runat="server" Text="Фамилия"></asp:Label>
+                <asp:TextBox runat="server" ID="lastname"></asp:TextBox>
+                <asp:Label ID="Label1" runat="server" Text="Имя"></asp:Label>
+                <asp:TextBox runat="server" ID="firstname"></asp:TextBox>
 	        </div>
+            <%-- ***************** --%>
 		    <ul class="pager wizard">
 			    <li class="previous first" style="display:none;"><a href="#">Первая</a></li>
 			    <li class="previous"><a href="#">Назад</a></li>
@@ -193,9 +203,13 @@
    <%--Скрипт для календаря "Библиотека Metro"--%>
     <script>
         $(function () {
+            var myDate = new Date();
+            var dayOfMonth = myDate.getDate();
+            myDate.setDate(dayOfMonth - 1);
             var cal = $("#cal-events").calendar({
                 multiSelect: false,
-                format: 'yyyy-dd-mm'
+                format: 'yyyy-dd-mm',
+                minDate: myDate
             });
         });
 

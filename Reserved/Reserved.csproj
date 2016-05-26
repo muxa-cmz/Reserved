@@ -139,8 +139,7 @@
     <Compile Include="Models\DomainModels\Subcategory.cs" />
     <Compile Include="Models\Mappers\CategoryMapper.cs" />
     <Compile Include="Models\Mappers\ServicesMapper.cs" />
-    <Compile Include="Models\Mappers\SubcategoryMapper.cs" />
-    <Compile Include="Models\Masters\DBMaster.cs" />
+    <Compile Include="Models\Masters\JsonMaster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

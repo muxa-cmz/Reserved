@@ -8,7 +8,7 @@ namespace Reserved.Models.DomainModels
         public int Id { get; set; }
         public String Name { get; set; }
 
-        public Category(int id, string name)
+        public Category(int id, String name)
         {
             Id = id;
             Name = name;
