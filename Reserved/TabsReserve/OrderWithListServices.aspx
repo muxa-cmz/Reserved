@@ -183,8 +183,6 @@
             <%-- Персональные данные --%>
 		    <div class="tab-pane" id="tab3">
 		        <asp:Label ID="Label2" runat="server" Text="Список выбранных вами услуг"></asp:Label>
-                
-
 			    <asp:Label runat="server" Text="Фамилия"></asp:Label>
                 <asp:TextBox runat="server" ID="lastname"></asp:TextBox>
                 <asp:Label ID="Label1" runat="server" Text="Имя"></asp:Label>
@@ -216,8 +214,27 @@
         function day_click(short, full) {
             //alert("You click on day!\nShort: " + short + "\nFull: " + full);
             // Выводить выбранную дату куда необходимо
-            var out = $("#calendar-output2").html("");
-            out.html(short);
+            //var out = $("#calendar-output2").html("");
+            //out.html(short);
+            debugger;
+            $.ajax({    //Передаём введённые данные на сервер и получаем ответ
+                type: "POST",
+                url: window.location.href + '/GetTime', //url: адрес текущей страницы / имя статического метода на стороне сервера
+                data: "{'date': '" + short + "' }",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true, cache: false,
+                success: function (data, textStatus, XHR) {
+                    var jObject = JSON.parse(data.d.toString());
+                    var elements = jObject["array"];
+                    for (var i = 0; i < elements.length; i++) {
+                        var id = elements[i].interval;
+                        var flag = elements[i].flag;
+                        document.getElementById('radio' + id).disabled = !flag;
+                    }
+                }
+            });
+            return false;
         }
     </script>
 

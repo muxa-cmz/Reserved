@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Web;
 
 namespace Reserved.Models.Masters
 {
@@ -10,33 +11,43 @@ namespace Reserved.Models.Masters
     {
         public string GetJSON(string url, Dictionary<String, String> parameters)
         {
-            StringBuilder paramSrting = new StringBuilder();
+            string postData = "";
 
-            if (parameters.Count != 0)
+            foreach (string key in parameters.Keys)
             {
-                foreach (var parameter in parameters)
-                {
-                    paramSrting.Append(parameter.Key)
-                        .Append("=")
-                        .Append(parameter.Value)
-                        .Append("&");
-                }
-                paramSrting.Remove(paramSrting.Length - 2, paramSrting.Length - 1);
+                postData += HttpUtility.UrlEncode(key) + "="
+                      + HttpUtility.UrlEncode(parameters[key]) + "&";
             }
 
-            // Start the request
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Method = "POST";
-            req.ContentType = "application/x-www-form-urlencoded";
-            StreamWriter streamWriter = new StreamWriter(req.GetRequestStream());
-            streamWriter.Write(paramSrting.ToString());
-            streamWriter.Flush();
-            streamWriter.Close();
-            // Get the response
-            HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-            StreamReader streamReader = new StreamReader(res.GetResponseStream());
-            string result = streamReader.ReadToEnd();
-            return result;
+            if (parameters.Count > 0)
+                url += "?" + postData;
+
+            HttpWebRequest myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            myHttpWebRequest.Method = "POST";
+
+            byte[] data = Encoding.ASCII.GetBytes(postData);
+
+            myHttpWebRequest.ContentType = "application/x-www-form-urlencoded";
+            myHttpWebRequest.ContentLength = data.Length;
+
+            Stream requestStream = myHttpWebRequest.GetRequestStream();
+            requestStream.Write(data, 0, data.Length);
+            requestStream.Close();
+
+            HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+
+            Stream responseStream = myHttpWebResponse.GetResponseStream();
+
+            StreamReader myStreamReader = new StreamReader(responseStream, Encoding.Default);
+
+            string pageContent = myStreamReader.ReadToEnd();
+
+            myStreamReader.Close();
+            responseStream.Close();
+
+            myHttpWebResponse.Close();
+
+            return pageContent;
         }
     }
 }

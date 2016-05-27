@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Web.Services;
 using System.Web.UI.WebControls;
+using Reserved.Models.DomainModels;
 using Reserved.Models.Mappers;
-using Reserved.Models.Masters;
 using Category = Reserved.Models.DomainModels.Category;
 using Service = Reserved.Models.DomainModels.Service;
 using CategoryDDL = DropDownList.Category;
@@ -35,9 +37,6 @@ namespace Reserved.TabsReserve
             // Предотвращение повторной инициализации
             if (IsPostBack) return; 
 
-            //DBMaster dbMaster = new DBMaster();
-            //dbMaster.OpenConnection();
-
             List<Category> categories = new List<Category>();
             CategoryMapper categoriesMapper = new CategoryMapper();
             categories.AddRange(categoriesMapper.GetCategories());
@@ -53,7 +52,31 @@ namespace Reserved.TabsReserve
                 dropDownList.Categories = CategoriesToCategoriesDLL(categories);
                 dropDownList.Services = ServicesToServicesDLL(services);
             }
-            
+        }
+
+        [WebMethod]
+        public static String GetTime(string date)
+        {
+            Dictionary<String, string> list = new Dictionary<String, string>();
+            InformationOrdersMapper informationOrdersMapper = new InformationOrdersMapper();
+            List<InformationOrders> informationOrderses = new List<InformationOrders>();
+            informationOrdersMapper.GetInformaIntervalsesOnDate(date);
+
+
+            #region Формирование json строки
+            StringBuilder json = new StringBuilder("{\"array\": [");
+            foreach (var el in list)
+            {
+                json.Append("{\"interval\":\"")
+                .Append(el.Key)
+                .Append("\", \"flag\":")
+                .Append(el.Value)
+                .Append("},");
+            }
+            json.Remove(json.Length - 1, 1);
+            json.Append("]}");
+            #endregion
+            return json.ToString();
         }
     }
 }
