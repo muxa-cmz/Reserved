@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Services;
 using System.Web.UI.WebControls;
 using Reserved.Models.DomainModels;
@@ -57,15 +58,38 @@ namespace Reserved.TabsReserve
         [WebMethod]
         public static String GetTime(string date)
         {
-            Dictionary<String, string> list = new Dictionary<String, string>();
             InformationOrdersMapper informationOrdersMapper = new InformationOrdersMapper();
-            List<InformationOrders> informationOrderses = new List<InformationOrders>();
-            informationOrdersMapper.GetInformaIntervalsesOnDate(date);
 
+            #region Список всех интервалов времени
+            TimeIntervalsMapper intervalsMapper = new TimeIntervalsMapper();
+            List<TimeIntervals> intervalses = new List<TimeIntervals>();
+            intervalses.AddRange(intervalsMapper.GetIntervals());
+            #endregion
+
+            #region Дефолтные статусы для всех радио кнопок (true)
+            Dictionary<String, String> times = intervalses.ToDictionary(interval => interval.Id.ToString(), interval => "true");
+            #endregion
+
+            #region Список уже забранированных на день интервалов времени
+            List<InformationOrders> informationOrderses = new List<InformationOrders>();
+            informationOrderses.AddRange(informationOrdersMapper.GetInformaIntervalsesOnDate(date));
+            #endregion
+
+            #region Оставляем только свободные интервалы времени
+            foreach (var interval in intervalses.ToArray()
+                                        .Where(interval => informationOrderses
+                                                                .Any(io => interval.Id == io.IdTimeInterval)))
+            {
+                intervalses.Remove(interval);
+            }
+            #endregion
+            
+            HttpCookieCollection cookieCollection = new HttpCookieCollection();
+            var qw = cookieCollection.Get("services");
 
             #region Формирование json строки
             StringBuilder json = new StringBuilder("{\"array\": [");
-            foreach (var el in list)
+            foreach (var el in times)
             {
                 json.Append("{\"interval\":\"")
                 .Append(el.Key)

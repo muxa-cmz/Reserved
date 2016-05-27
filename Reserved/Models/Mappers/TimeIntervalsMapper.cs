@@ -14,7 +14,7 @@ namespace Reserved.Models.Mappers
         private Dictionary<String, String> parameters = new Dictionary<string, string>();
         private String url = "http://autoline.h1n.ru/get_all_timeintervals.php";
 
-        public List<TimeIntervals> GetCategories()
+        public List<TimeIntervals> GetIntervals()
         {
             List<TimeIntervals> timeIntervals = new List<TimeIntervals>();
             String response = jsonMaster.GetJSON(url, parameters);

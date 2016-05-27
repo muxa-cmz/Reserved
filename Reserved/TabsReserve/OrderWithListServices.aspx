@@ -206,17 +206,12 @@
             myDate.setDate(dayOfMonth - 1);
             var cal = $("#cal-events").calendar({
                 multiSelect: false,
-                format: 'yyyy-dd-mm',
+                format: 'yyyy-mm-dd',
                 minDate: myDate
             });
         });
 
         function day_click(short, full) {
-            //alert("You click on day!\nShort: " + short + "\nFull: " + full);
-            // Выводить выбранную дату куда необходимо
-            //var out = $("#calendar-output2").html("");
-            //out.html(short);
-            debugger;
             $.ajax({    //Передаём введённые данные на сервер и получаем ответ
                 type: "POST",
                 url: window.location.href + '/GetTime', //url: адрес текущей страницы / имя статического метода на стороне сервера
@@ -254,13 +249,23 @@
     
     <%--Скрипт для анализа активных плиток--%>
     <script type="text/javascript">
-        
+        var checked = [];
+        debugger;
         function setCookie(name, value) {
             document.cookie = name + "=" + value;
         }
 
+        function clickService(box) {
+            debugger;
+            if (box.checked) {
+                checked.push(box.value);
+            } else {
+                checked.splice(checked.indexOf(box.value), 1);
+            }
+        };
+
         document.getElementById("btnStatus").onclick = function() {
-            var checked = [];
+            //var checked = [];
             var count = 5; // Решить проблему с тем что число должно соответствовать количеству "плиток"
             var i = 0;
             while (++i <= count) {
