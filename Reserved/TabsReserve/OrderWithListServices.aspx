@@ -4,9 +4,7 @@
 <%--<%@ Register Assembly="TileWithCheckBox" Namespace="TileWithCheckBox" TagPrefix="cc1" %>--%>
 
 <%@ Register Assembly="DropDownList" Namespace="DropDownList" TagPrefix="cc1" %>
-
-
-
+<%@ Register TagPrefix="cc1" Namespace="RadioButtonsList" Assembly="RadioButtonsList" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
@@ -136,6 +134,63 @@
         }
     </style>
     
+    <style>
+        .radios-as-buttons div {
+            float: left;
+        }
+        .radios-as-buttons input {
+            position: absolute;
+            left: -9999px;
+        }
+        .radios-as-buttons label {
+            display: block;
+            font-size: 10px;    /**/
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; /**/
+            margin: 0 0 0 -1px;
+            padding: 5px 5px;
+            border: 1px solid #BBBBBB;
+            /*background: linear-gradient(to bottom, rgba(3,74,243, 0.8) 0%, rgba(229,229,229,1) 100%);*/
+            background: white;
+            /*background: #59cde2;*/
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .12);
+            cursor: pointer;
+
+            display: inline-block;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            -o-user-select: none; 
+            user-select: none;
+        }
+        .radios-as-buttons input:checked + label {
+            /*background: white;*/
+            background: #59cde2;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, .2);
+        }
+
+        .radios-as-buttons input:disabled + label {
+            background: #cccccc;
+        }
+        
+        .radios-as-buttons div:nth-child(even) label {
+            margin-left: 5px;
+            margin-top: 5px;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .radios-as-buttons div:nth-child(odd) label {
+            margin-left: 5px;
+            margin-top: 5px;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+    </style>
+    
     
     <link href="../Libs/Metro-UI-CSS-master/build/css/metro.css" rel="stylesheet" />
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -169,24 +224,34 @@
             <%-- ***************** --%>
              <%-- Календарь --%>
 	        <div class="tab-pane" id="tab2">
-	              <div style="width: 250px">
-                    <div class="calendar" 
-                         data-week-start="1" 
-                         data-start-mode="month" 
-                         id="cal-events"
-                         data-locale="ru"
-                         data-day-click="day_click"></div>
-                    <div id="calendar-output2"></div>
-                </div>
+	            <table>
+	                <tr>
+	                    <td>
+	                        <div style="width: 250px">
+                                <div class="calendar" 
+                                     data-week-start="1" 
+                                     data-start-mode="month" 
+                                     id="cal-events"
+                                     data-locale="ru"
+                                     data-day-click="day_click"></div>
+                                <div id="calendar-output2"></div>
+                            </div>
+	                    </td>
+                        <td>
+                            <cc1:RadioButtonsList runat="server" ID="radioButtonsList" Visible="True"/>
+                        </td>
+	                </tr>
+	            </table>
+
 	        </div>
             <%-- ***************** --%>
             <%-- Персональные данные --%>
 		    <div class="tab-pane" id="tab3">
-		        <asp:Label ID="Label2" runat="server" Text="Список выбранных вами услуг"></asp:Label>
+		        <%--<asp:Label ID="Label2" runat="server" Text="Список выбранных вами услуг"></asp:Label>
 			    <asp:Label runat="server" Text="Фамилия"></asp:Label>
                 <asp:TextBox runat="server" ID="lastname"></asp:TextBox>
                 <asp:Label ID="Label1" runat="server" Text="Имя"></asp:Label>
-                <asp:TextBox runat="server" ID="firstname"></asp:TextBox>
+                <asp:TextBox runat="server" ID="firstname"></asp:TextBox>--%>
 	        </div>
             <%-- ***************** --%>
 		    <ul class="pager wizard">
@@ -250,33 +315,34 @@
     <%--Скрипт для анализа активных плиток--%>
     <script type="text/javascript">
         var checked = [];
-        debugger;
+        //debugger;
         function setCookie(name, value) {
             document.cookie = name + "=" + value;
         }
 
         function clickService(box) {
-            debugger;
+            //debugger;
             if (box.checked) {
                 checked.push(box.value);
             } else {
                 checked.splice(checked.indexOf(box.value), 1);
             }
+            setCookie("checked_services", checked);
         };
 
-        document.getElementById("btnStatus").onclick = function() {
-            //var checked = [];
-            var count = 5; // Решить проблему с тем что число должно соответствовать количеству "плиток"
-            var i = 0;
-            while (++i <= count) {
-                //debugger;
-                if (document.getElementById("checkbox" + i).checked) {
-                    checked.push(document.getElementById("checkbox" + i).value);
-                }
-            }
-            setCookie("checked_services", checked);
-            alert("Выбраны: " + checked);
-        };
+        //document.getElementById("btnStatus").onclick = function() {
+        //    //var checked = [];
+        //    var count = 5; // Решить проблему с тем что число должно соответствовать количеству "плиток"
+        //    var i = 0;
+        //    while (++i <= count) {
+        //        //debugger;
+        //        if (document.getElementById("checkbox" + i).checked) {
+        //            checked.push(document.getElementById("checkbox" + i).value);
+        //        }
+        //    }
+        //    setCookie("checked_services", checked);
+        //    alert("Выбраны: " + checked);
+        //};
     </script>
 
 </asp:Content>

@@ -45,7 +45,7 @@
     </Reference>
     <Reference Include="DropDownList, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\DropDownList\DropDownList\bin\Debug\DropDownList.dll</HintPath>
+      <HintPath>..\..\DropDownList\DropDownList\obj\Debug\DropDownList.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
@@ -679,6 +679,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RadioButtonsList\RadioButtonsList\RadioButtonsList.csproj">
+      <Project>{0b15c23d-747b-4526-8c46-a2ff7543021f}</Project>
+      <Name>RadioButtonsList</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
