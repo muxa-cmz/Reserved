@@ -11,9 +11,10 @@ namespace Reserved.Models.Mappers
     public class InformationOrdersMapper
     {
         private static JsonMaster jsonMaster = new JsonMaster();
-        //private static Dictionary<String, String> parameters = new Dictionary<String, String>();
+        private static Dictionary<String, String> parameters = new Dictionary<String, String>();
         private static String urlGetInformaIntervalsesOnDate = "http://autoline.h1n.ru/get_informationOrders_on_date.php";
         private static String urlGetInformations = "http://autoline.h1n.ru/get_informations.php";
+        private static String url_insert_information_order = "http://autoline.h1n.ru/insert_information_order.php";
 
         public List<InformationOrders> GetInformaIntervalsesOnDate(String date)
         {
@@ -58,6 +59,26 @@ namespace Reserved.Models.Mappers
                                                                     )).ToList();
             }
             return informationOrders;
+        }
+
+        public int InsertInformationOrders(int idDay, int idTimeInterval, int idBox, int idOrder)
+        {
+            parameters = new Dictionary<string, string>();
+            parameters.Add("idDay", idDay.ToString());
+            parameters.Add("idTimeInterval", idTimeInterval.ToString());
+            parameters.Add("idBox", idBox.ToString());
+            parameters.Add("idOrder", idOrder.ToString());
+            String response = jsonMaster.GetJSON(url_insert_information_order, parameters);
+            JObject jObject = JObject.Parse(response);
+            JToken success = jObject["success"];
+            if ((int)success == 1)
+            {
+                JToken jOrder = jObject["order"];
+                var jArray = jOrder.ToArray();
+                int id = jArray.Select(element => (int)element["id"]).ElementAt(0);
+                return id;
+            }
+            return 0;
         }
     }
 }

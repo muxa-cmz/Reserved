@@ -53,6 +53,9 @@
       <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServicesList">
+      <HintPath>..\..\ServicesList\ServicesList\bin\Debug\ServicesList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -122,6 +125,9 @@
     <Reference Include="TileWithCheckBox">
       <HintPath>..\..\..\..\..\..\Documents\Visual Studio 2012\Projects\TileWithCheckBox\TileWithCheckBox\bin\Debug\TileWithCheckBox.dll</HintPath>
     </Reference>
+    <Reference Include="YourServices">
+      <HintPath>..\..\YourServices\YourServices\bin\Debug\YourServices.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -134,17 +140,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DomainModels\Box.cs" />
     <Compile Include="Models\DomainModels\Category.cs" />
     <Compile Include="Models\DomainModels\InformationOrders.cs" />
+    <Compile Include="Models\DomainModels\Order.cs" />
     <Compile Include="Models\DomainModels\Services.cs" />
     <Compile Include="Models\DomainModels\Subcategory.cs" />
     <Compile Include="Models\DomainModels\TimeIntervals.cs" />
+    <Compile Include="Models\Mappers\BoxMapper.cs" />
     <Compile Include="Models\Mappers\CategoryMapper.cs" />
+    <Compile Include="Models\Mappers\DayMapper.cs" />
     <Compile Include="Models\Mappers\InformationOrdersMapper.cs" />
+    <Compile Include="Models\Mappers\OrderMapper.cs" />
     <Compile Include="Models\Mappers\ServicesMapper.cs" />
     <Compile Include="Models\Mappers\TimeIntervalsMapper.cs" />
     <Compile Include="Models\Masters\JsonMaster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesList.aspx.cs">
+      <DependentUpon>ServicesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServicesList.aspx.designer.cs">
+      <DependentUpon>ServicesList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -206,8 +224,10 @@
     <Content Include="Image\40.jpg" />
     <Content Include="Image\41.jpg" />
     <Content Include="Image\42.jpg" />
+    <Content Include="Image\check_radio_sheet.png" />
     <Content Include="Image\close.png" />
     <Content Include="Image\drawing.svg" />
+    <Content Include="Image\Jeep.JPG" />
     <Content Include="Libs\Gruntfile.js" />
     <Content Include="Libs\Metro-UI-CSS-master\build\css\metro-icons.css" />
     <Content Include="Libs\Metro-UI-CSS-master\build\css\metro-icons.min.css" />
@@ -631,6 +651,7 @@
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\SelectedServices.js" />
     <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Scripts\Wizard\bootstrap\css\bootstrap.css" />
@@ -647,6 +668,7 @@
     <Content Include="Scripts\Wizard\MIT-LICENSE.txt" />
     <Content Include="Scripts\Wizard\prettify.css" />
     <Content Include="Scripts\Wizard\prettify.js" />
+    <Content Include="ServicesList.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="TabsReserve\OrderWithListServices.aspx" />
     <Content Include="Web.config" />

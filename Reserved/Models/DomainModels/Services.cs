@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Reserved.Models.DomainModels
 {
@@ -12,6 +13,7 @@ namespace Reserved.Models.DomainModels
         public String PathToImage { get; set; }
         public int IdCategory { get; set; }
         public int IdSubCategory { get; set; }
+        public Dictionary<String, String> Prices { get; set; }
 
         public Service(int id, String name,  String notation, 
                        String duration, String pathToImage,
@@ -24,6 +26,7 @@ namespace Reserved.Models.DomainModels
             PathToImage = pathToImage;
             IdCategory = idCategory;
             IdSubCategory = idSubCategory;
+            Prices = new Dictionary<String, String>();
         }
 
         public Service(String name, 
@@ -36,12 +39,14 @@ namespace Reserved.Models.DomainModels
             PathToImage = pathToImage;
             IdCategory = idCategory;
             IdSubCategory = idSubCategory;
+            Prices = new Dictionary<String, String>();
         }
 
         public Service(int id, String name)
         {
             Id = id;
             Name = name;
+            Prices = new Dictionary<String, String>();
         }
     }
 }

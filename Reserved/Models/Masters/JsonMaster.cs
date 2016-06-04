@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
@@ -12,12 +13,10 @@ namespace Reserved.Models.Masters
         public string GetJSON(string url, Dictionary<String, String> parameters)
         {
             string postData = "";
-
-            foreach (string key in parameters.Keys)
-            {
-                postData += HttpUtility.UrlEncode(key) + "="
-                      + HttpUtility.UrlEncode(parameters[key]) + "&";
-            }
+            foreach (var key in parameters.Keys)
+                //if (!key.Contains(","))
+                    postData = postData + (HttpUtility.UrlEncode(key) + "=" + HttpUtility.UrlEncode(parameters[key]) + "&");
+              
 
             if (parameters.Count > 0)
                 url += "?" + postData;

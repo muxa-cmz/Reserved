@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="Забронировать" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeBehind="~/TabsReserve/OrderWithListServices.aspx.cs" Inherits="Reserved.TabsReserve.OrderWithListServices" %>
 
-<%--<%@ Register Assembly="TileWithCheckBox" Namespace="TileWithCheckBox" TagPrefix="cc1" %>--%>
 
 <%@ Register Assembly="DropDownList" Namespace="DropDownList" TagPrefix="cc1" %>
 <%@ Register TagPrefix="cc1" Namespace="RadioButtonsList" Assembly="RadioButtonsList" %>
+
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
@@ -189,6 +189,30 @@
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
         }
+
+        input[type="radio"] {
+            display:none;
+        }
+
+        input[type="radio"] + label {
+            color:#000;
+            font-family:Arial, sans-serif;
+            font-size:14px;
+        }
+
+        input[type="radio"] + label span {
+            display:inline-block;
+            width:19px;
+            height:19px;
+            margin:-1px 4px 0 0;
+            vertical-align:middle;
+            background:url(../Image/check_radio_sheet.png) -38px top no-repeat;
+            cursor:pointer;
+        }
+
+        input[type="radio"]:checked + label span {
+            background:url(../Image/check_radio_sheet.png) -57px top no-repeat;
+        }
     </style>
     
     
@@ -219,6 +243,53 @@
 	    <div class="tab-content">
             <%-- Выбор услуг --%>
 	        <div class="tab-pane" id="tab1">
+                
+                <table>
+                    <tr>
+                        <td>
+                            <img src="../Image/Jeep.JPG" />
+                        </td>
+                        <td>
+                            <img src="../Image/Jeep.JPG" />
+                        </td>
+                        <td>
+                            <img src="../Image/Jeep.JPG" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" id="r1" name="rr" value="1"/>
+                            <label for="r1"><span></span>Класс 1</label>
+                        </td>
+                        <td>
+                            <input type="radio" id="r2" name="rr" value="2"/>
+                            <label for="r2"><span></span>Класс 2</label>
+                        </td>
+                        <td>
+                            <input type="radio" id="r3" name="rr" value="3"/>
+                            <label for="r3"><span></span>Класс 3</label>
+                        </td>
+                    </tr>
+                </table>
+
+	                <%--<img src="../Image/Jeep.JPG" />
+                    <!-- Элемент переключатель -->
+                    <input type="radio" id="r1" name="rr" />
+                    <label for="r1"><span></span>Класс 1</label>
+
+	                <img src="../Image/Jeep.JPG" /><br/>
+                    <!-- Элемент переключатель -->
+                    <input type="radio" id="Radio1" name="rr" />
+                    <label for="Radio1"><span></span>Класс 2</label>
+	                <img src="../Image/Jeep.JPG" /><br/>
+                    <!-- Элемент переключатель -->
+                    <input type="radio" id="Radio2" name="rr" />
+                    <label for="Radio2"><span></span>Класс 3</label>--%>
+
+	            
+	            <%--<input type="radio" title="Класс 1"/> <img src=""/>--%>
+                <%--<input type="radio" title="Класс 2"/> <img src="../Image/Jeep.JPG" />
+                <input type="radio" title="Класс 3"/> <img src=""/>--%>
 	            <cc1:DropDownList runat="server" ID="ServiceList"/>
             </div>
             <%-- ***************** --%>
@@ -229,29 +300,43 @@
 	                    <td>
 	                        <div style="width: 250px">
                                 <div class="calendar" 
-                                     data-week-start="1" 
-                                     data-start-mode="month" 
-                                     id="cal-events"
-                                     data-locale="ru"
-                                     data-day-click="day_click"></div>
+                                        data-week-start="1" 
+                                        data-start-mode="month" 
+                                        id="cal-events"
+                                        data-locale="ru"
+                                        data-day-click="day_click">
+                                </div>
                                 <div id="calendar-output2"></div>
                             </div>
 	                    </td>
                         <td>
-                            <cc1:RadioButtonsList runat="server" ID="radioButtonsList" Visible="True"/>
+                            <div style="width: 250px">
+                                <cc1:RadioButtonsList runat="server" ID="radioButtonsList" Visible="True"/>
+                            </div>
                         </td>
 	                </tr>
 	            </table>
-
 	        </div>
             <%-- ***************** --%>
             <%-- Персональные данные --%>
 		    <div class="tab-pane" id="tab3">
-		        <%--<asp:Label ID="Label2" runat="server" Text="Список выбранных вами услуг"></asp:Label>
-			    <asp:Label runat="server" Text="Фамилия"></asp:Label>
-                <asp:TextBox runat="server" ID="lastname"></asp:TextBox>
-                <asp:Label ID="Label1" runat="server" Text="Имя"></asp:Label>
-                <asp:TextBox runat="server" ID="firstname"></asp:TextBox>--%>
+		        <table >
+		            <tr>
+		                <td style="vertical-align: top; padding: 5px;">
+		                    <label>Список выбранных вами услуг:</label><br/>
+                            <%--<cc1:YourServices runat="server" ID="yourServices"/>--%>
+                            <ol id="yourServices" class="list-group">
+
+                            </ol>
+		                </td>
+                        <td style="vertical-align: top; padding: 5px;">
+                            <input runat="server" type="text" id="lastName" placeholder="Фамилия" required/><br />
+                            <input runat="server" type="text" style="margin-top: 5px" id="firstName" placeholder="Имя"/>
+                            <asp:Button runat="server" ID="confirm" Text="Забронировать" OnClientClick="return Call();" OnClick="confirm_OnClick"/>
+                            <input type="hidden" name="idrb" id="idrb" /> 
+                        </td>
+		            </tr>
+		        </table>
 	        </div>
             <%-- ***************** --%>
 		    <ul class="pager wizard">
@@ -296,6 +381,61 @@
             });
             return false;
         }
+
+        function time_click() {
+            //debugger;
+            $.ajax({    //Передаём введённые данные на сервер и получаем ответ
+                type: "POST",
+                url: window.location.href + '/SetServicesList', //url: адрес текущей страницы / имя статического метода на стороне сервера
+                data: "{'date': '" + " " + "' }",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true, cache: false,
+                success: function (data, textStatus, XHR) {
+                    var jObject = JSON.parse(data.d.toString());
+                    var elements = jObject["array"];
+                    var totalCost = 0;
+                    for (var i = 0; i < elements.length; i++) {
+                        var title = "";
+                        var name = elements[i].name;
+                        var prices = elements[i].price;
+                        title += name + " - ";
+                        for (var j = 1; j < Object.keys(prices).length; j++) {
+                            if (document.getElementById('r' + j).checked) {
+                                title += prices[Object.keys(prices)[j - 1]] + " руб";
+                                totalCost += parseInt(prices[Object.keys(prices)[j - 1]]);
+                                break;
+                            }
+                        }
+                        var newLi = document.createElement('li');
+                        newLi.innerHTML = title;
+                        newLi.className = "list-group-item";
+                        window.yourServices.appendChild(newLi);
+                    }
+                    var totalCostLi = document.createElement('li');
+                    totalCostLi.innerHTML = "Сумма заказа: " + totalCost + " руб";
+                    totalCostLi.className = "list-group-item";
+                    window.yourServices.appendChild(totalCostLi);
+
+                }
+            });
+            return false;
+        }
+
+        function Call() {
+            var j = 1;
+            //debugger;
+            try {
+                while (true) {
+                    if (document.getElementById('radio' + j).checked) {
+                        document.getElementById('idrb').value = j;
+                        break;
+                    }
+                    j++;
+                }
+            } catch (e) {
+            }
+        }
     </script>
 
     <%--Скрипт для multiple формы "Библиотека Bootstrap"--%>
@@ -329,20 +469,6 @@
             }
             setCookie("checked_services", checked);
         };
-
-        //document.getElementById("btnStatus").onclick = function() {
-        //    //var checked = [];
-        //    var count = 5; // Решить проблему с тем что число должно соответствовать количеству "плиток"
-        //    var i = 0;
-        //    while (++i <= count) {
-        //        //debugger;
-        //        if (document.getElementById("checkbox" + i).checked) {
-        //            checked.push(document.getElementById("checkbox" + i).value);
-        //        }
-        //    }
-        //    setCookie("checked_services", checked);
-        //    alert("Выбраны: " + checked);
-        //};
     </script>
 
 </asp:Content>
