@@ -47,6 +47,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\DropDownList\DropDownList\obj\Debug\DropDownList.dll</HintPath>
     </Reference>
+    <Reference Include="HallList">
+      <HintPath>..\..\HallList\HallList\bin\Debug\HallList.dll</HintPath>
+    </Reference>
+    <Reference Include="HallMap">
+      <HintPath>..\..\HallMap\HallMap\bin\Debug\HallMap.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -142,16 +148,20 @@
     </Compile>
     <Compile Include="Models\DomainModels\Box.cs" />
     <Compile Include="Models\DomainModels\Category.cs" />
+    <Compile Include="Models\DomainModels\Hall.cs" />
     <Compile Include="Models\DomainModels\InformationOrders.cs" />
     <Compile Include="Models\DomainModels\Order.cs" />
     <Compile Include="Models\DomainModels\Services.cs" />
     <Compile Include="Models\DomainModels\Subcategory.cs" />
+    <Compile Include="Models\DomainModels\Table.cs" />
     <Compile Include="Models\DomainModels\TimeIntervals.cs" />
     <Compile Include="Models\Mappers\BoxMapper.cs" />
     <Compile Include="Models\Mappers\CategoryMapper.cs" />
     <Compile Include="Models\Mappers\DayMapper.cs" />
+    <Compile Include="Models\Mappers\HallMapper.cs" />
     <Compile Include="Models\Mappers\InformationOrdersMapper.cs" />
     <Compile Include="Models\Mappers\OrderMapper.cs" />
+    <Compile Include="Models\Mappers\ReservedTablesMapper.cs" />
     <Compile Include="Models\Mappers\ServicesMapper.cs" />
     <Compile Include="Models\Mappers\TimeIntervalsMapper.cs" />
     <Compile Include="Models\Masters\JsonMaster.cs" />
@@ -176,6 +186,13 @@
     </Compile>
     <Compile Include="TabsReserve\OrderWithListServices.aspx.designer.cs">
       <DependentUpon>OrderWithListServices.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TabsReserve\OrderWithMapHall.aspx.cs">
+      <DependentUpon>OrderWithMapHall.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TabsReserve\OrderWithMapHall.aspx.designer.cs">
+      <DependentUpon>OrderWithMapHall.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -548,6 +565,40 @@
     <Content Include="Libs\Metro-UI-CSS-master\test\RequireJS\scripts\main.js" />
     <Content Include="Libs\Metro-UI-CSS-master\test\RequireJS\scripts\metro.js" />
     <Content Include="Libs\Metro-UI-CSS-master\test\RequireJS\scripts\require.js" />
+    <Content Include="Scripts\ClockPicker\assets\css\bootstrap-theme.css" />
+    <Content Include="Scripts\ClockPicker\assets\css\bootstrap-theme.min.css" />
+    <Content Include="Scripts\ClockPicker\assets\css\bootstrap.css" />
+    <Content Include="Scripts\ClockPicker\assets\css\bootstrap.min.css" />
+    <Content Include="Scripts\ClockPicker\assets\css\github.min.css" />
+    <Content Include="Scripts\ClockPicker\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\ClockPicker\assets\images\screenshot-1.png" />
+    <Content Include="Scripts\ClockPicker\assets\js\bootstrap.js" />
+    <Content Include="Scripts\ClockPicker\assets\js\bootstrap.min.js" />
+    <Content Include="Scripts\ClockPicker\assets\js\highlight.min.js" />
+    <Content Include="Scripts\ClockPicker\assets\js\html5shiv.js" />
+    <Content Include="Scripts\ClockPicker\assets\js\jquery.js" />
+    <Content Include="Scripts\ClockPicker\assets\js\jquery.min.js" />
+    <Content Include="Scripts\ClockPicker\assets\js\respond.min.js" />
+    <Content Include="Scripts\ClockPicker\dist\bootstrap-clockpicker.css" />
+    <Content Include="Scripts\ClockPicker\dist\bootstrap-clockpicker.js" />
+    <Content Include="Scripts\ClockPicker\dist\bootstrap-clockpicker.min.css" />
+    <Content Include="Scripts\ClockPicker\dist\bootstrap-clockpicker.min.js" />
+    <Content Include="Scripts\ClockPicker\dist\jquery-clockpicker.css" />
+    <Content Include="Scripts\ClockPicker\dist\jquery-clockpicker.js" />
+    <Content Include="Scripts\ClockPicker\dist\jquery-clockpicker.min.css" />
+    <Content Include="Scripts\ClockPicker\dist\jquery-clockpicker.min.js" />
+    <Content Include="Scripts\ClockPicker\gulpfile.js" />
+    <Content Include="Scripts\ClockPicker\index.html" />
+    <Content Include="Scripts\ClockPicker\jquery.html" />
+    <Content Include="Scripts\ClockPicker\src\clockpicker.css" />
+    <Content Include="Scripts\ClockPicker\src\clockpicker.js" />
+    <Content Include="Scripts\ClockPicker\src\standalone.css" />
+    <Content Include="Scripts\ClockPicker\test\all.html" />
+    <Content Include="Scripts\ClockPicker\test\assets\qunit-1.14.0.css" />
+    <Content Include="Scripts\ClockPicker\test\assets\qunit-1.14.0.js" />
+    <Content Include="Scripts\ClockPicker\test\assets\utils.js" />
+    <Content Include="Scripts\ClockPicker\test\suites\basic.js" />
+    <Content Include="Scripts\ClockPicker\test\suites\data-api.js" />
     <Content Include="Scripts\Clock\clock-hd.jpg" />
     <Content Include="Scripts\Clock\clock-sm.jpg" />
     <Content Include="Scripts\Clock\hour_arrow.png" />
@@ -645,12 +696,27 @@
     <Content Include="Libs\metro.nuspec" />
     <Content Include="Libs\package.json" />
     <Content Include="Libs\README.md" />
+    <Content Include="Scripts\ClockPicker\.gitignore" />
+    <Content Include="Scripts\ClockPicker\.travis.yml" />
+    <Content Include="Scripts\ClockPicker\assets\css\bootstrap-theme.css.map" />
+    <Content Include="Scripts\ClockPicker\assets\css\bootstrap.css.map" />
+    <Content Include="Scripts\ClockPicker\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\ClockPicker\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\ClockPicker\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\ClockPicker\bower.json" />
+    <Content Include="Scripts\ClockPicker\LICENSE" />
+    <Content Include="Scripts\ClockPicker\package.json" />
+    <Content Include="Scripts\ClockPicker\README.md" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\Raphael\init.js" />
+    <Content Include="Scripts\Raphael\paths.js" />
+    <Content Include="Scripts\Raphael\raphael-min.js" />
+    <Content Include="Scripts\Raphael\raphael.js" />
     <Content Include="Scripts\SelectedServices.js" />
     <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.min.css" />
@@ -671,6 +737,7 @@
     <Content Include="ServicesList.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="TabsReserve\OrderWithListServices.aspx" />
+    <Content Include="TabsReserve\OrderWithMapHall.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

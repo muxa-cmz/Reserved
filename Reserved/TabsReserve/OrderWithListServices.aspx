@@ -20,17 +20,14 @@
             width: 17px;
             height: 17px;
         }
-        
         /* Это для всех браузеров, кроме совсем старых, которые не поддерживают
         селекторы с плюсом. Показываем, что label кликабелен. */
         .checkbox + label {
             cursor: pointer;
         }
-
         /* Далее идет оформление чекбокса в современных браузерах, а также IE9 и выше.
         Благодаря тому, что старые браузеры не поддерживают селекторы :not и :checked,
         в них все нижеследующие стили не сработают. */
-
         /* Прячем оригинальный чекбокс. */
         .checkbox:not(checked) {
             position: absolute;
@@ -40,7 +37,6 @@
             position: relative;  /*будем позиционировать псевдочекбокс относительно label */
             padding: 0 0 0 60px;  /*оставляем слева от label место под псевдочекбокс */
         }
-       
         /* Оформление первой части чекбокса в выключенном состоянии (фон). */
         .checkbox:not(checked) + label:before {
             content: '';
@@ -53,7 +49,6 @@
             background: #CDD1DA;
             box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
         }
-        
         /* Оформление второй части чекбокса в выключенном состоянии (переключатель). */
         .checkbox:not(checked) + label:after {
             content: '';
@@ -67,17 +62,14 @@
             box-shadow: 0 2px 5px rgba(0,0,0,.3);
             transition: all .2s;  /* анимация, чтобы чекбокс переключался плавно */
         }
-        
         /* Меняем фон чекбокса, когда он включен.*/
         .checkbox:checked + label:before {
             background: #9FD468;
         } 
-
         /* Сдвигаем переключатель чекбокса, когда он включен. */
         .checkbox:checked + label:after {
             left: 26px;
         }
-
         /* Показываем получение фокуса. 
         .checkbox:focus + label:before {
           box-shadow: 0 0 0 3px rgba(255,255,0,.5);
@@ -87,7 +79,6 @@
             text-align: center;
             margin: 5px 5px 10px;
         }
-
         /*Отменить выделение текста в элементах Label*/
         .label-tile {
             color: black;
@@ -98,7 +89,6 @@
             -o-user-select: none; 
             user-select: none;
         }
-
         .label-image {
             width: 100px; height: 100px; 
             display: inline-block;
@@ -108,12 +98,10 @@
             -o-user-select: none; 
             user-select: none;
         }
-
         .blackAndWhite{
             filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
             position:absolute;
         }
-
         .disable {
             position: relative;   
         }
@@ -126,7 +114,6 @@
             background-color: rgba(0,0,0,0.2);   
             content: "";
         }
-
         .img-overlay{
             width: 100%;
             height: 100%;

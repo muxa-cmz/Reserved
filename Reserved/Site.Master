@@ -29,6 +29,7 @@
 					<Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Главная"/>
                         <asp:MenuItem NavigateUrl="~/TabsReserve/OrderWithListServices.aspx" Text="Забронировать"/>
+                        <asp:MenuItem NavigateUrl="~/TabsReserve/OrderWithMapHall.aspx" Text="Забронировать"/>
                         <%--<asp:MenuItem NavigateUrl="~/TabsReserve/OrderWithMap.aspx" Text="Карта"/>
                         <asp:MenuItem NavigateUrl="~/TabsReserve/RaphaelExample.aspx" Text="Raphael"/>--%>
                         <asp:MenuItem NavigateUrl="ServicesList.aspx" Text="Список услуг"/>
