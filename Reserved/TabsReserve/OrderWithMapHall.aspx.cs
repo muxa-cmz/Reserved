@@ -43,7 +43,7 @@ namespace Reserved.TabsReserve
         }
 
         [WebMethod]
-        public static String ViewFreeTablesHall(string hallId, string date, string time)
+        public static String ViewFreeTablesHall(String hallId, String date, String time)
         {
             #region Находим список забранированных столов на необходимый день
             ReservedTablesMapper reservedTablesMapper = new ReservedTablesMapper();
@@ -73,6 +73,20 @@ namespace Reserved.TabsReserve
             cookieString = cookieString.Substring(0, cookieString.Length - 1);
 
             return cookieString;
+        }
+
+        [WebMethod]
+        public static String InsertInformationOrder(String name, String phone, String table, String time, String date)
+        {
+            DayMapper dayMapper = new DayMapper();
+            date = date.Substring(6, 4) + "-" + date.Substring(3, 2) + "-" + date.Substring(0, 2);
+            int idDay = dayMapper.GetDayId(date);   // id даты бронирования
+            ReservedTablesMapper reservedTablesMapper = new ReservedTablesMapper();
+            //time = time.Replace(':', '.');
+
+            String idOrder = reservedTablesMapper.ReserveTable(name, phone, table, time, idDay);
+
+            return idOrder;
         }
     }
 }

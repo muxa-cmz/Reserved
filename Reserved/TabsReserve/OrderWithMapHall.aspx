@@ -155,6 +155,17 @@
             outline:none;
             background:url(/Image/close.png) no-repeat;
         }
+        .point .complite {
+            display:block;
+            position:absolute;
+            bottom: -15px;
+            right: -10px;
+            width:84px;
+            height:24px;
+            text-indent:-9999px;
+            outline:none;
+            background:url(/Image/reserved.png) no-repeat;
+        }
         .point img {
             vertical-align:middle;
             margin-right:10px;
@@ -162,13 +173,24 @@
         a img {
             border:none;
         }
+        .res-label {
+            margin: 2px;
+            font-size: 10px;
+            content:'';
+            display:block;
+            width:100%;
+        }
+        .res-input {
+            margin: 2px;
+            font-size: 10px;
+        }
     </style>
     
     
     <script src="../Scripts/Raphael/raphael.js" type="text/javascript"></script>
-    <script src="../Scripts/Raphael/init.js"></script>
     <script src="../Scripts/Raphael/paths.js"></script>
-    
+    <script src="../Scripts/Raphael/init.js"></script>
+    <%--<script src="../Scripts/jquery.maskedinput.js"></script>--%>
 
     <div class="h-wrap">
         <div class="h-content">
@@ -209,21 +231,24 @@
         }
 
         function viewHall(value) {
+            //debugger;
             var len = document.getElementsByClassName('wrapper').length;
+            var date = "";
+            var time = "";
             for (var i = 1; i <= len; i++) {
                 if (i === value) {
                     document.getElementById("desc_hall" + i).style = "";
                     // вызвать метод для поиска свободных столов в зале
-                    var date = $('#inputDate').val();
-                    var time = $('#inputTime').val();
-                    viewFreeTablesHall(value, date, time);
-                    PaintTable();
+                    date = $('#inputDate').val();
+                    time = $('#inputTime').val();
                 }
                 else {
                     document.getElementById("desc_hall" + i).style = "display: none;";
                 }
             }
             setCookie("hall", value);
+            viewFreeTablesHall(value, date, time);
+            paintTable();
         }
 
         function viewFreeTablesHall(value, date, time) {
@@ -237,13 +262,6 @@
                 success: function (data, textStatus, XHR) {
                     var arrayTable = data.d.toString();
                     setCookie("freeBox", arrayTable);
-                    //var jObject = JSON.parse(data.d.toString());
-                    //var elements = jObject["array"];
-                    //for (var i = 0; i < elements.length; i++) {
-                    //    var id = elements[i].interval;
-                    //    var flag = elements[i].flag;
-                    //    document.getElementById('radio' + id).disabled = !flag;
-                    //}
                 }
             });
             return false;
@@ -268,6 +286,11 @@
         });
     </script>
     
+    <%--<script type="text/javascript">
+        $(document).ready(function() {
+            $("#phone").mask("(999) 999-9999");
+        });
+    </script>--%>
 
 </asp:Content>
 

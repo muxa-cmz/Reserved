@@ -153,7 +153,6 @@
     <Compile Include="Models\DomainModels\Order.cs" />
     <Compile Include="Models\DomainModels\Services.cs" />
     <Compile Include="Models\DomainModels\Subcategory.cs" />
-    <Compile Include="Models\DomainModels\Table.cs" />
     <Compile Include="Models\DomainModels\TimeIntervals.cs" />
     <Compile Include="Models\Mappers\BoxMapper.cs" />
     <Compile Include="Models\Mappers\CategoryMapper.cs" />
@@ -245,6 +244,7 @@
     <Content Include="Image\close.png" />
     <Content Include="Image\drawing.svg" />
     <Content Include="Image\Jeep.JPG" />
+    <Content Include="Image\reserved.png" />
     <Content Include="Libs\Gruntfile.js" />
     <Content Include="Libs\Metro-UI-CSS-master\build\css\metro-icons.css" />
     <Content Include="Libs\Metro-UI-CSS-master\build\css\metro-icons.min.css" />
@@ -717,7 +717,6 @@
     <Content Include="Scripts\Raphael\paths.js" />
     <Content Include="Scripts\Raphael\raphael-min.js" />
     <Content Include="Scripts\Raphael\raphael.js" />
-    <Content Include="Scripts\SelectedServices.js" />
     <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Scripts\Wizard\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Scripts\Wizard\bootstrap\css\bootstrap.css" />
